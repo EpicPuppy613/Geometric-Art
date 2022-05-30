@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    Mode:
+    <select id="mode">
+        <option value="circle">Circle Art</option>
+        <option value="square">Square Grid</option>
+    </select>
+    <br>
+    Width: <input type="number" id="width" value="1280"><br>
+    Height: <input type="number" id="height" value="720"><br>
+    <div id="circle">
+        Iterations: <input type="number" id="circleiterations" value="10000">
+    </div>
+    <div id="square">
+        Color 1: <input type="color" id="squarecolor1" value="#ff0000"><br>
+        Color 2: <input type="color" id="squarecolor2" value="#00ff00"><br>
+        Columns: <input type="number" id="squarecolumns" value="10"><br>
+        Rows: <input type="number" id="squarerows" value="10"><br>
+        Gradient: <select id="squaregradient">
+            <option value="hsl">HSL</option>
+            <option value="rgb">RGB</option>
+        </select>
+    </div>
+    <br>
+    <button onclick="Run()">Run</button>
+    <br>
+    <canvas id="canvas" width="1280" height="720"></canvas>
+    <img id="output">
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
