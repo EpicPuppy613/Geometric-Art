@@ -142,6 +142,10 @@ function Run() {
             break;
     }
     document.getElementById('output').src = canvas.toDataURL();
+    document.getElementById('download').disabled = false;
+    document.getElementById('download').href = canvas.toDataURL();
+    var date = new Date();
+    document.getElementById('download').download = A.mode + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '.png';
 }
 
 document.getElementById('mode').addEventListener('change', () => {
