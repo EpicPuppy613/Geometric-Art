@@ -14,6 +14,7 @@ A.mode = 'circle';
 A.modes = ['circle', 'square'];
 
 var x = 0;
+document.getElementById('download').style.display = 'none';
 
 // https://css-tricks.com/converting-color-spaces-in-javascript/
 function hexToHSL(H) {
@@ -141,8 +142,7 @@ function Run() {
                 rgb);
             break;
     }
-    document.getElementById('output').src = canvas.toDataURL();
-    document.getElementById('download').disabled = false;
+    document.getElementById('download').style.display = '';
     document.getElementById('download').href = canvas.toDataURL();
     var date = new Date();
     document.getElementById('download').download = A.mode + '-' + date.getMonth() + '-' + date.getDate() + ' ' + date.getHours() + '-' + date.getMinutes() + '-' + date.getSeconds() + '.png';

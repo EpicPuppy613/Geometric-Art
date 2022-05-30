@@ -4,3 +4,14 @@ html {
 canvas {
     border: 2px solid gray;
 }
+a {
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 4px;
+    border-radius: 8px;
+    background-color: #ccc;
+    color: black;
+}
+a:hover {
+    background-color: #fff;
+}
