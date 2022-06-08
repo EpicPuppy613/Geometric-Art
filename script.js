@@ -62,18 +62,6 @@ function hexToHSL(H) {
     return [h, s, l];
 }
 
-function CircleArt(amt) {
-    for (var i = 0; i < amt; i++) {
-        const x = Math.random() * W;
-        const y = Math.random() * H;
-        const r = Math.random() * 20 + 10;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2, false);
-        ctx.fillStyle = `hsl(${((x + y) / (W + H)) * 360}, 100%, 50%)`;
-        ctx.fill();
-    }
-}
-
 // https://css-tricks.com/converting-color-spaces-in-javascript/
 function hexToRGB(h) {
     let r = 0, g = 0, b = 0;
@@ -92,6 +80,38 @@ function hexToRGB(h) {
     }
 
     return [+r, +g, +b];
+}
+
+function CircleArt(amt, color1, color2, rgb=false) {
+    if (rgb) {
+        c1 = hexToRGB(color1);
+        c2 = hexToRGB(color2);
+    } else {
+        c1 = hexToHSL(color1);
+        c2 = hexToHSL(color2);
+    }
+    adif = c2[0] - c1[0];
+    bdif = c2[1] - c1[1];
+    cdif = c2[2] - c1[2];
+    for (var i = 0; i < amt; i++) {
+        const x = Math.random() * W;
+        const y = Math.random() * H;
+        const r = Math.random() * 20 + 10;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2, false);
+        if (rgb) {
+            ctx.fillStyle = `rgb(
+                ${c1[0] + (adif * ((x + y) / (W + H)))}, 
+                ${c1[1] + (bdif * ((x + y) / (W + H)))}, 
+                ${c1[2] + (cdif * ((x + y) / (W + H)))})`;
+        } else {
+            ctx.fillStyle = `hsl(
+                ${c1[0] + (adif * ((x + y) / (W + H)))}, 
+                ${c1[1] + (bdif * ((x + y) / (W + H)))}%, 
+                ${c1[2] + (cdif * ((x + y) / (W + H)))}%)`;
+        }
+        ctx.fill();
+    }
 }
 
 function SquareArt(color1, color2, rows, columns, rgb=false) {
@@ -129,7 +149,13 @@ function Run() {
     ctx.clearRect(0, 0, W, H);
     switch (A.mode) {
         case 'circle':
-            CircleArt(document.getElementById('circleiterations').value);
+            rgb = false;
+            if (document.getElementById('circlegradient').value == 'rgb') rgb = true;
+            CircleArt(
+                document.getElementById('circleiterations').value,
+                document.getElementById('circlecolor1').value,
+                document.getElementById('circlecolor2').value,
+                rgb);
             break;
         case 'square':
             rgb = false;
